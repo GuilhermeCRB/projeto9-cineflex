@@ -1,0 +1,38 @@
+.movie-screen{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--background);
+}
+
+.movie-screen p{
+    font-size: 24px;
+    letter-spacing: 0.04em;
+    margin: 50px 0;
+    color: var(--main-text-color);
+}
+
+.movie-screen ul{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 320px;
+}
+
+.movie-screen_movie-frame{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 145px;
+    height: 209px;
+    margin-bottom: 11px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px 2px rgba(0, 0, 0, 0.1);
+    background-color: white;
+}
+
+.movie-screen img{
+    width: 129px;
+}
+

@@ -4,7 +4,6 @@ import axios from "axios";
 export default function MovieScreen(){
 
     const [movies, setMovies] = useState([1]);
-    console.log(movies)
 
     useEffect(() =>{
         const promise = axios.get("https://mock-api.driven.com.br/api/v5/cineflex/movies");
@@ -19,15 +18,17 @@ export default function MovieScreen(){
         setMovies(response.data);
     }
 
-    console.log(movies)
-
     return(
         <div className="movie-screen">
             <p>Selecione o filme</p>
             <ul>
                 {movies.map((movie) => {
                     const {title, posterURL} = movie;
-                    return  <li><img src={posterURL} alt={title} /></li>
+                    return  (
+                        <div className="movie-screen_movie-frame">
+                            <li><img src={posterURL} alt={title} /></li>
+                        </div>
+                    );
                 })}
             </ul>
         </div>
