@@ -6,6 +6,7 @@ import SessionScreen from "./components/SessionScreen.jsx";
 import "./assets/reset.css";
 import "./assets/style.css";
 import "./assets/movie-screen.css";
+import "./assets/session-screen.css"
 
 export default function App() {
     return (

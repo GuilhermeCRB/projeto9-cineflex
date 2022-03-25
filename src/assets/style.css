@@ -2,13 +2,20 @@
     --header-color: #C3CFD9;
     --logo-color: #E8833A;
     --main-text-color: #293845;
-    --background: #E5E5E5;
+    --footer-color: #DFE6ED;
+    --footer-border: #9EADBA;
+    --background: white;
+    --time-color: white;
 
     font-family: "Roboto";
 }
 
 * {
     box-sizing: border-box;
+}
+
+body{
+    background-color: var(--background);
 }
 
 header{
@@ -20,4 +27,11 @@ header{
     font-size: 34px;
     color: var(--logo-color);
     background-color: var(--header-color);
+}
+
+h2{
+    font-size: 24px;
+    letter-spacing: 0.04em;
+    margin: 50px 0;
+    color: var(--main-text-color);
 }

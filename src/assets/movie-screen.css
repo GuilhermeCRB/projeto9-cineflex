@@ -3,14 +3,6 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: var(--background);
-}
-
-.movie-screen p{
-    font-size: 24px;
-    letter-spacing: 0.04em;
-    margin: 50px 0;
-    color: var(--main-text-color);
 }
 
 .movie-screen ul{
