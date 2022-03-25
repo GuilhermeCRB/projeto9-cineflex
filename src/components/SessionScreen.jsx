@@ -3,13 +3,13 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 export default function SessionScreen(){
-    const [sessions, setSessions] = useState();
+    const [sessions, setSessions] = useState({});
     const {movieID} = useParams();
     
 
     useEffect(() => {
         const promise = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/movies/${movieID}/showtimes`);
-        promise.then(displaySessions); promise.catch(errorWarn); 
+        promise.then(displaySessions); promise.catch(errorWarn)
     }, []);
 
     function errorWarn(error) {
@@ -34,25 +34,41 @@ export default function SessionScreen(){
     }
 
     return (
-        <section className="session-screen">
-            <h2>Selecione o horário</h2>
-            <div className="session-screen_day">
-                {sessions.days.map((session) => {
-                    const {weekday, date, showtimes} = session;
-                    return(
-                        <>
-                            <p>{`${weekday} - ${date}`}</p>
-                            <div className="session-screen_time">
-                                {displayTimes(showtimes)}
-                            </div>
-                        </>
-                    );
-                })}
-            </div>
-            <footer>
-                <div className="session-screen_img-frame"><img src={sessions.posterURL} alt="" /></div>
-                <h3>{sessions.title}</h3>
-            </footer>
-        </section>
+            <section className="session-screen">
+                <h2>Selecione o horário</h2>
+                {sessions && 
+                    <>
+                        <div className="session-screen_day">
+                            <Sessions sessions={sessions} displayTimes={displayTimes}/>
+                        </div>
+                        < Footer sessions={sessions} />
+                    </>
+                }
+            </section>
+    );
+}
+
+function Sessions({sessions, displayTimes}){
+    return(
+        sessions.days.map((session) => {
+            const {weekday, date, showtimes} = session;
+            return(
+                <>
+                    <p>{`${weekday} - ${date}`}</p>
+                    <div className="session-screen_time">
+                        {displayTimes(showtimes)}
+                    </div>
+                </>
+            );
+        })
+    );
+}
+
+function Footer({sessions}){
+    return(
+    <footer>
+        <div className="session-screen_img-frame"><img src={sessions.posterURL} alt="" /></div>
+        <h3>{sessions.title}</h3>
+    </footer>
     );
 }

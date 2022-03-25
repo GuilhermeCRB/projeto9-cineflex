@@ -25,7 +25,7 @@ export default function MovieScreen() {
             <ul>
                 {movies.map((movie, index) => {
                     const { id, title, posterURL } = movie;
-                    return (
+                    return ( movies &&
                         <Link key={index} to={`/sessoes/${id}`}>
                             <div className="movie-screen_movie-frame">
                                 <li><img src={posterURL} alt={title} /></li>
