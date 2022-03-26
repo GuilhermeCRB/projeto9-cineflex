@@ -18,7 +18,6 @@ export default function SeatSelectionScreen() {
     }
 
     function displaySeats(response) {
-        console.log(response.data)
         setSeats(response.data);
     }
 
@@ -28,7 +27,11 @@ export default function SeatSelectionScreen() {
             {seats &&
                 <>
                     <div className="seat-screen_room">
-                        <Seats room={seats} />
+                        <Seats
+                            room={seats}
+                        // setSelected={setSelected}
+                        // selected={selected}
+                        />
                     </div>
                     <Legend />
                     <Form />
@@ -41,12 +44,11 @@ export default function SeatSelectionScreen() {
 
 function Seats({ room }) {
     const { seats } = room;
+
     return (
-        seats.map((seat) => {
+        seats.map((seat, index) => {
             return (
-                <Seat isAvailable={seat.isAvailable} className="seat-screen_seat">
-                    <p>{seat.name}</p>
-                </Seat>
+                <Seat key={index} isAvailable={seat.isAvailable} index={index} name={seat.name} />
             )
         })
     )
@@ -83,6 +85,22 @@ function Form() {
     );
 }
 
+function Seat({isAvailable, index, name}) {
+    const [selected, setSelected] = useState();
+    
+    return (
+        <SeatStyle
+            isAvailable={isAvailable}
+            selected={selected}
+            index={index}
+            onClick={() => setSelected(index)}
+            className="seat-screen_seat"
+        >
+            <p>{name}</p>
+        </SeatStyle>
+    );
+}
+
 // function Footer(){
 //     return (
 //         <footer>
@@ -92,24 +110,25 @@ function Form() {
 //     );
 // }
 
-function checkAvailability(isAvailable, element) {
-    switch(isAvailable){
-        case true:
-            return element === "border" ? "var(--available-seat-border)":"var(--available-seat)";
-        case false:
-            return element === "border" ? "var(--unavailable-seat-border)":"var(--unavailable-seat)";
-        default:
-            return element === "border" ? "var(--selected-seat-border)":"var(--selected-seat)";
+function checkAvailability(isAvailable, selected, index, element) {
+    if (isAvailable) {
+        if (selected === index) {
+            return element === "border" ? "var(--selected-seat-border)" : "var(--selected-seat)";
+        } else {
+            return element === "border" ? "var(--available-seat-border)" : "var(--available-seat)";
+        }
+    } else {
+        return element === "border" ? "var(--unavailable-seat-border)" : "var(--unavailable-seat)";
     }
 }
 
-const Seat = styled.div`
+const SeatStyle = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 7px 18px 0;
-    border: 1px solid ${({isAvailable}) => checkAvailability(isAvailable, "border")};
-    background-color: ${({isAvailable}) => checkAvailability(isAvailable, "background")};
+    border: 1px solid ${({ isAvailable, selected, index }) => checkAvailability(isAvailable, selected, index, "border")};
+    background-color: ${({ isAvailable, selected, index }) => checkAvailability(isAvailable, selected, index, "background")};
 
     p{
         font-size: 12px;
