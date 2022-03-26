@@ -1,0 +1,100 @@
+.seat-screen{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.seat-screen_room{
+    display: flex;
+    flex-direction: row;
+    margin-top: -20px;
+}
+
+.seat-screen_seat{
+    width: 26px;
+    height: 26px;
+    border-radius: 13px;
+}
+
+.seat-screen_room_seat{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 7px 18px 0;
+    border: 1px solid var(--available-seat-border);
+    background-color: var(--available-seat);
+}
+
+.seat-screen_room_seat p{
+    font-size: 12px;
+    color: var(--seat-color);
+}
+
+.seat-screen_legend{
+    display: flex;
+    justify-content: space-around;
+    width: 80vw;
+    margin-bottom: 50px;
+}
+
+.seat-screen_legend_box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.seat-screen_legend_selected_seat{
+    border: 1px solid var(--selected-seat-border);
+    background-color: var(--selected-seat);
+}
+
+.seat-screen_legend_available_seat{
+    border: 1px solid var(--available-seat-border);
+    background-color: var(--available-seat);
+}
+
+.seat-screen_legend_unvailable_seat{
+    border: 1px solid var(--unavailable-seat-border);
+    background-color: var(--unavailable-seat);
+}
+
+.seat-screen form{
+    width: 90vw;
+}
+
+.seat-screen label{
+    font-size: 18px;
+    line-height: 21px;
+    letter-spacing: 0.04em;
+    color: var(--main-text-color);
+}
+
+.seat-screen input{
+    width: 90vw;
+    height: 51px;
+    margin-bottom: 10px;
+    padding-left: 18px;
+    border-radius: 3px;
+    border: var(--input-border);
+}
+
+.seat-screen input::placeholder{
+    font-size: 18px;
+    font-style: italic;
+    color: var(--placeholder-color);
+}
+
+.seat-screen button{
+    display: block;
+    font-size: 18px;
+    letter-spacing: 0.04em;
+    width: 225px;
+    height: 42px;
+    margin: 57px auto 0 auto;
+    border: none;
+    border-radius: 3px;
+    color: var(--button-color);
+    background-color: var(--logo-color);
+}
