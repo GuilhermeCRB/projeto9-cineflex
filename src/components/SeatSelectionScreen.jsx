@@ -86,14 +86,13 @@ function Form() {
 }
 
 function Seat({isAvailable, index, name}) {
-    const [selected, setSelected] = useState();
-    
+    const [selected, setSelected] = useState(false);
+
     return (
         <SeatStyle
             isAvailable={isAvailable}
             selected={selected}
-            index={index}
-            onClick={() => setSelected(index)}
+            onClick={() => setSelected(!selected)}
             className="seat-screen_seat"
         >
             <p>{name}</p>
@@ -110,9 +109,9 @@ function Seat({isAvailable, index, name}) {
 //     );
 // }
 
-function checkAvailability(isAvailable, selected, index, element) {
+function checkAvailability(isAvailable, selected, element) {
     if (isAvailable) {
-        if (selected === index) {
+        if (selected) {
             return element === "border" ? "var(--selected-seat-border)" : "var(--selected-seat)";
         } else {
             return element === "border" ? "var(--available-seat-border)" : "var(--available-seat)";
@@ -127,8 +126,8 @@ const SeatStyle = styled.div`
     align-items: center;
     justify-content: center;
     margin: 0 7px 18px 0;
-    border: 1px solid ${({ isAvailable, selected, index }) => checkAvailability(isAvailable, selected, index, "border")};
-    background-color: ${({ isAvailable, selected, index }) => checkAvailability(isAvailable, selected, index, "background")};
+    border: 1px solid ${({ isAvailable, selected }) => checkAvailability(isAvailable, selected, "border")};
+    background-color: ${({ isAvailable, selected }) => checkAvailability(isAvailable, selected, "background")};
 
     p{
         font-size: 12px;
