@@ -1,24 +1,23 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+
 import axios from "axios";
 
 export default function SessionScreen() {
     const [sessions, setSessions] = useState(null);
     const { movieID } = useParams();
 
-
     useEffect(() => {
         const promise = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/movies/${movieID}/showtimes`);
-        promise.then(displaySessions); promise.catch(errorWarn)
+        promise.then(displaySessions); promise.catch(warnError)
     }, []);
 
-    function errorWarn(error) {
+    function warnError(error) {
         alert("Sorry an error has occured, try again later.");
     }
 
     function displaySessions(response) {
-        console.log(response.data)
         setSessions(response.data);
     }
 

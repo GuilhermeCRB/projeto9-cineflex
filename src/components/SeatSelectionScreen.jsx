@@ -1,30 +1,52 @@
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-export default function SeatSelectionScreen() {
+import axios from "axios";
+import styled from "styled-components";
 
+export default function SeatSelectionScreen() {
+    const [seats, setSeats] = useState(null);
     const { sessionID } = useParams();
+
+    useEffect(() => {
+        const promise = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${sessionID}/seats`);
+        promise.then(displaySeats); promise.catch(warnError);
+    }, []);
+
+    function warnError(error) {
+        alert("Sorry an error has occured, try again later.");
+    }
+
+    function displaySeats(response) {
+        console.log(response.data)
+        setSeats(response.data);
+    }
 
     return (
         <section className="seat-screen">
             <h2>Selecione o(s) assento(s)</h2>
-            <div className="seat-screen_room">
-                <Seats />
-            </div>
-            <Legend />
-            <Form />
-            {/* <Footer /> */}
+            {seats &&
+                <>
+                    <div className="seat-screen_room">
+                        <Seats room={seats} />
+                    </div>
+                    <Legend />
+                    <Form />
+                    {/* <Footer /> */}
+                </>
+            }
         </section>
     );
 }
 
-function Seats() {
-    const array = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+function Seats({ room }) {
+    const { seats } = room;
     return (
-        array.map((num) => {
+        seats.map((seat) => {
             return (
-                <div className="seat-screen_room_seat seat-screen_seat">
-                    <p>{num}</p>
-                </div>
+                <Seat isAvailable={seat.isAvailable} className="seat-screen_seat">
+                    <p>{seat.name}</p>
+                </Seat>
             )
         })
     )
@@ -69,3 +91,28 @@ function Form() {
 //         </footer>
 //     );
 // }
+
+function checkAvailability(isAvailable, element) {
+    switch(isAvailable){
+        case true:
+            return element === "border" ? "var(--available-seat-border)":"var(--available-seat)";
+        case false:
+            return element === "border" ? "var(--unavailable-seat-border)":"var(--unavailable-seat)";
+        default:
+            return element === "border" ? "var(--selected-seat-border)":"var(--selected-seat)";
+    }
+}
+
+const Seat = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 7px 18px 0;
+    border: 1px solid ${({isAvailable}) => checkAvailability(isAvailable, "border")};
+    background-color: ${({isAvailable}) => checkAvailability(isAvailable, "background")};
+
+    p{
+        font-size: 12px;
+        color: var(--seat-color);
+    }
+`
