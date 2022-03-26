@@ -25,7 +25,7 @@
     display: flex;
     justify-content: space-around;
     width: 80vw;
-    margin-bottom: 50px;
+    margin: 10px 0 50px 0;
 }
 
 .seat-screen_legend_box{
@@ -52,6 +52,7 @@
 
 .seat-screen form{
     width: 90vw;
+    margin-bottom: 200px;
 }
 
 .seat-screen label{

@@ -21,21 +21,24 @@ export default function SeatSelectionScreen() {
         setSeats(response.data);
     }
 
+    console.log(seats)
+
     return (
         <section className="seat-screen">
             <h2>Selecione o(s) assento(s)</h2>
             {seats &&
                 <>
                     <div className="seat-screen_room">
-                        <Seats
-                            room={seats}
-                        // setSelected={setSelected}
-                        // selected={selected}
-                        />
+                        <Seats room={seats} />
                     </div>
                     <Legend />
                     <Form />
-                    {/* <Footer /> */}
+                    <Footer
+                        title={seats.movie.title}
+                        posterURL={seats.movie.posterURL}
+                        day={seats.day.weekday}
+                        time={seats.name}
+                    />
                 </>
             }
         </section>
@@ -100,14 +103,17 @@ function Seat({ isAvailable, index, name }) {
     );
 }
 
-// function Footer(){
-//     return (
-//         <footer>
-//             <div className="img-frame"><img src={sessions.posterURL} alt="" /></div>
-//             <h3>{sessions.title}</h3>
-//         </footer>
-//     );
-// }
+function Footer({ title, posterURL, day, time }) {
+    return (
+        <footer>
+            <div className="img-frame"><img src={posterURL} alt="" /></div>
+            <div>
+                <h3>{title}</h3>
+                <p>{`${day} - ${time}`}</p>
+            </div>
+        </footer>
+    );
+}
 
 function checkAvailability(isAvailable, selected, element) {
     if (isAvailable) {
