@@ -85,7 +85,7 @@ function Form() {
     );
 }
 
-function Seat({isAvailable, index, name}) {
+function Seat({ isAvailable, index, name }) {
     const [selected, setSelected] = useState(false);
 
     return (
@@ -116,10 +116,14 @@ function checkAvailability(isAvailable, selected, element) {
         } else {
             return element === "border" ? "var(--available-seat-border)" : "var(--available-seat)";
         }
+    } else if (selected) {
+        alert("Este assento não está disponível");
+        return element === "border" ? "var(--unavailable-seat-border)" : "var(--unavailable-seat)";
     } else {
         return element === "border" ? "var(--unavailable-seat-border)" : "var(--unavailable-seat)";
     }
 }
+
 
 const SeatStyle = styled.div`
     display: flex;
