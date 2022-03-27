@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function Form({ seatsNumber }) {
     const [buyerName, setBuyerName] = useState("");
     const [buyerCPF, setBuyerCPF] = useState("");
+    const navigate = useNavigate();
 
     function validateRequest(e) {
         e.preventDefault();
@@ -71,14 +73,10 @@ export default function Form({ seatsNumber }) {
             "https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many",
             {ids: seatsNumber, name: buyerName, cpf: buyerCPF}
         );
-        promise.then(goToSuccessScreen); promise.catch(warnError);
+        promise.then(navigate("/sucesso")); promise.catch(warnError);
 
         function warnError(error) {
             alert("Parece que algo de errado não está certo. Por favor, tente novamente mais tarde.");
-        }
-    
-        function goToSuccessScreen(response) {
-            console.log("tudo certo");
         }
     }
 
