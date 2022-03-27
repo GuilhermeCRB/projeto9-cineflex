@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-export default function Form({ seatsNumber }) {
+export default function Form({ seatsNumber, buyingInformation }) {
     const [buyerName, setBuyerName] = useState("");
     const [buyerCPF, setBuyerCPF] = useState("");
     const navigate = useNavigate();
@@ -14,6 +14,7 @@ export default function Form({ seatsNumber }) {
         const cpfRequirements = testBuyerCPF();
 
         if (nameRequirements && cpfRequirements && seatsValidation) {
+            saveInformation();
             sendRequest();
         }
     }
@@ -66,6 +67,11 @@ export default function Form({ seatsNumber }) {
         }
 
         return isCpfFormat;
+    }
+
+    function saveInformation(){
+        buyingInformation.movieBuyerName = buyerName;
+        buyingInformation.movieBuyerCPF = buyerCPF;
     }
 
     function sendRequest() {

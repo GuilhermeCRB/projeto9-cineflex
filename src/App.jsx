@@ -12,7 +12,18 @@ import "./assets/session-screen.css";
 import "./assets/seat-selection-screen.css";
 import "./assets/success-screen.css"
 
+
 export default function App() {
+    let seatsNumber = [];
+    let buyingInformation = {
+        movieName: "",
+        movieDay: "",
+        movieTime: "",
+        movieSeats: [],
+        movieBuyerName: "",
+        movieBuyerCPF: ""
+    }
+
     return (
         <BrowserRouter>
             <header>
@@ -21,8 +32,14 @@ export default function App() {
             <Routes>
                 <Route path="/" element={<MovieScreen />} />
                 <Route path="/sessoes/:movieID" element={<SessionScreen />} />
-                <Route path="/assentos/:sessionID" element={<SeatSelectionScreen />} />
-                <Route path="/sucesso" element={<SuccessScreen />} />
+                <Route
+                    path="/assentos/:sessionID"
+                    element={<SeatSelectionScreen
+                        seatsNumber={seatsNumber}
+                        buyingInformation={buyingInformation}
+                    />}
+                />
+                <Route path="/sucesso" element={<SuccessScreen buyingInformation={buyingInformation} />} />
             </Routes>
         </BrowserRouter>
     );
