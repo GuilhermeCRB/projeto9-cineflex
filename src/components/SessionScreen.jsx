@@ -14,7 +14,7 @@ export default function SessionScreen() {
     }, []);
 
     function warnError(error) {
-        alert("Sorry an error has occured, try again later.");
+        alert("Parece que algo de errado não está certo. Por favor, tente novamente mais tarde.");
     }
 
     function displaySessions(response) {
@@ -38,7 +38,7 @@ export default function SessionScreen() {
     return (
         <section className="session-screen">
             <h2>Selecione o horário</h2>
-            {sessions &&
+            {sessions && //necessary to force code to wait for the promise to be answered before load the page
                 <>
                     <div className="session-screen_day">
                         <Sessions sessions={sessions} displayTimes={displayTimes} />
