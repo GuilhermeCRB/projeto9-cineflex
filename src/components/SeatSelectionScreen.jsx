@@ -29,10 +29,10 @@ export default function SeatSelectionScreen() {
             {seats && //necessary to force code to wait for the promise to be answered before load the page
                 <>
                     <div className="seat-screen_room">
-                        <Seats room={seats} seatsNumber={seatsNumber} />
+                        <Seats room={seats}  seatsNumber={seatsNumber} />
                     </div>
                     <Legend />
-                    <Form />
+                    <Form seatsNumber={seatsNumber} />
                     <Footer
                         title={seats.movie.title}
                         posterURL={seats.movie.posterURL}
@@ -49,12 +49,13 @@ function Seats({ room, seatsNumber }) {
     const { seats } = room;
 
     return (
-        seats.map((seat, index) => {
+        seats.map((seat,index) => {
             return (
                 <Seat
                     key={index}
                     isAvailable={seat.isAvailable}
-                    index={index} name={seat.name}
+                    index={seat.id} 
+                    name={seat.name}
                     seatsNumber={seatsNumber}
                 />
             )

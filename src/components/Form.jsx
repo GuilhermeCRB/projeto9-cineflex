@@ -1,32 +1,42 @@
 import { useState } from "react";
+import axios from "axios";
 
-export default function Form() {
+export default function Form({seatsNumber}) {
     const [buyerName, setBuyerName] = useState("");
     const [buyerCPF, setBuyerCPF] = useState("");
 
     function validateRequest(e){
         e.preventDefault();
-
+        const seatsValidation = testSeats();
         const nameRequirements = testBuyerName(); 
         const cpfRequirements = testBuyerCPF();
-
-        if(nameRequirements && cpfRequirements){
-            console.log("envia aí")
-            // sendRequest();
+        
+        if(nameRequirements && cpfRequirements && seatsValidation){
+            console.log("entrei")
+            sendRequest();
         }
     }
-
+    
+    function testSeats(){
+        if(seatsNumber.length < 1){
+            alert("Por favor, selecione um assento para continuar.")
+            return false;
+        }else{
+            return true;
+        }
+    }
+    
     function testBuyerName(){
-        let isAllLetters;
-
+        let isAllLetters = true;
+        
         if(buyerName.length === 0){
             isAllLetters = false;
             alert("Por favor, preencha seu nome corretamente.");
             return isAllLetters;
         }
-
+        
         for(let i = 0; i < buyerName.length; i++){
-            if(!/[a-z]/.test(buyerName[i])){
+            if(!/[a-z]/.test(buyerName[i].toLowerCase())){
                 isAllLetters = false;
                 alert("Por favor, preencha seu nome corretamente.")
                 break;
@@ -38,7 +48,7 @@ export default function Form() {
 
 
     function testBuyerCPF(){
-        let isCpfFormat;
+        let isCpfFormat = true;
 
         if(buyerCPF.length !== 11){
             isCpfFormat = false;
@@ -57,12 +67,12 @@ export default function Form() {
         return isCpfFormat;
     }
 
-    // function sendRequest(){
-
-    // }
+    function sendRequest(){
+        const promise = axios.post();
+    }
 
     return (
-        <form action="" onSubmit={validateRequest}>
+        <form>
             <label for="form_buyer-name">Nome do comprador:</label>
             <input
                 type="text"
@@ -79,7 +89,7 @@ export default function Form() {
                 value={buyerCPF}
                 onChange={(e) => {setBuyerCPF(e.target.value)}}
             />
-            <button type="submit">Reservar assento(s)</button>
+            <button onClick={validateRequest} type="submit">Reservar assento(s)</button>
         </form>
     );
 }

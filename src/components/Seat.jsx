@@ -18,14 +18,13 @@ export default function Seat({ isAvailable, index, name, seatsNumber }) {
     );
 }
 
-function checkAvailability(isAvailable, selected, element, index, seatsNumber) {
+function checkAvailability(isAvailable, selected, index, seatsNumber, element) {
     if (isAvailable) {
         if (selected) {
-            seatsNumber.push(index);
+            if(element === "border") seatsNumber.push(index); //if statement is necessary to not save the seat in seatsNumber array twice, since function is being called 2 times per click
             return element === "border" ? "var(--selected-seat-border)" : "var(--selected-seat)";
         } else {
-            console.log("entrei")
-            // dropSeats(index, seatsNumber);
+            // if(element === "border") dropSeat(index, seatsNumber);
             return element === "border" ? "var(--available-seat-border)" : "var(--available-seat)";
         }
     } else if (selected) {
@@ -36,15 +35,17 @@ function checkAvailability(isAvailable, selected, element, index, seatsNumber) {
     }
 }
 
-function dropSeats(index, seatsNumber){
-    seatsNumber = seatsNumber.filter((seat => {
-        if(seat === index){
-            return false;
-        }else{
-            return true;
-        }
-    }))
-}
+// function dropSeat(index, seatsNumber){
+//     if(seatsNumber.length !== 0){
+//         seatsNumber = seatsNumber.filter((seat) => {
+//             if(seat === index){
+//                 return false;
+//             }else{
+//                 return true;
+//             }
+//         })
+//     }
+// }
 
 
 const SeatStyle = styled.div`
