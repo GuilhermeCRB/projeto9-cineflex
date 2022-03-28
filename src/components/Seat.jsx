@@ -29,7 +29,9 @@ function checkAvailability(isAvailable, selected, index, SeatID, seatsNumber, bu
             }
             return element === "border" ? "var(--selected-seat-border)" : "var(--selected-seat)";
         } else {
-            if(element === "border") dropSeat(SeatID, seatsNumber);
+            console.log(buyingInformation.movieSeats)
+            if(element === "border") dropSeat(SeatID, seatsNumber, buyingInformation, index);
+            console.log(buyingInformation.movieSeats)
             return element === "border" ? "var(--available-seat-border)" : "var(--available-seat)";
         }
     } else if (selected) {
@@ -40,18 +42,21 @@ function checkAvailability(isAvailable, selected, index, SeatID, seatsNumber, bu
     }
 }
 
-function dropSeat(SeatID, seatsNumber){
+function dropSeat(SeatID, seatsNumber, buyingInformation, index){
     if(seatsNumber.length !== 0){
-        seatsNumber = seatsNumber.filter((seat) => {
+        seatsNumber.forEach((seat,i) => {
             if(seat === SeatID){
-                return false;
-            }else{
-                return true;
+                seatsNumber.splice(i,1);
+            }
+        })
+
+        buyingInformation.movieSeats.forEach((seat,i) => {
+            if(seat === index+1){
+                buyingInformation.movieSeats.splice(i,1);
             }
         })
     }
 }
-
 
 const SeatStyle = styled.div`
     display: flex;
