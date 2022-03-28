@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
+
 export default function Form({ seatsNumber, buyingInformation }) {
     const [buyerName, setBuyerName] = useState("");
     const [buyerCPF, setBuyerCPF] = useState("");
@@ -87,7 +88,7 @@ export default function Form({ seatsNumber, buyingInformation }) {
     }
 
     return (
-        <form>
+        <form onSubmit={validateRequest}>
             <label for="form_buyer-name">Nome do comprador:</label>
             <input
                 type="text"
@@ -104,7 +105,7 @@ export default function Form({ seatsNumber, buyingInformation }) {
                 value={buyerCPF}
                 onChange={(e) => { setBuyerCPF(e.target.value) }}
             />
-            <button onClick={validateRequest} type="submit">Reservar assento(s)</button>
+            <button type="submit">Reservar assento(s)</button>
         </form>
     );
 }

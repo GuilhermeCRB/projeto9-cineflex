@@ -29,7 +29,7 @@ function checkAvailability(isAvailable, selected, index, SeatID, seatsNumber, bu
             }
             return element === "border" ? "var(--selected-seat-border)" : "var(--selected-seat)";
         } else {
-            // if(element === "border") dropSeat(SeatID, seatsNumber);
+            if(element === "border") dropSeat(SeatID, seatsNumber);
             return element === "border" ? "var(--available-seat-border)" : "var(--available-seat)";
         }
     } else if (selected) {
@@ -40,17 +40,17 @@ function checkAvailability(isAvailable, selected, index, SeatID, seatsNumber, bu
     }
 }
 
-// function dropSeat(SeatID, seatsNumber){
-//     if(seatsNumber.length !== 0){
-//         seatsNumber = seatsNumber.filter((seat) => {
-//             if(seat === SeatID){
-//                 return false;
-//             }else{
-//                 return true;
-//             }
-//         })
-//     }
-// }
+function dropSeat(SeatID, seatsNumber){
+    if(seatsNumber.length !== 0){
+        seatsNumber = seatsNumber.filter((seat) => {
+            if(seat === SeatID){
+                return false;
+            }else{
+                return true;
+            }
+        })
+    }
+}
 
 
 const SeatStyle = styled.div`
